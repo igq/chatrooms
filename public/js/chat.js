@@ -34,6 +34,16 @@ Chat.prototype.processCommand = function(command) {
       var name = words.join(' ');
       this.socket.emit('nameAttempt', name);
       break;
+    case 'dice':
+      words.shift();
+      var max = words.join('');
+      // 使用socketio发送消息
+      this.socket.emit('dice', max);
+      // 不使用socketio发送消息
+      // var msg = {name: "dice", args: [max]};
+      // var msgStr = JSON.stringify(msg);
+      // this.socket.send(msgStr);
+      break;
     default:
       message = 'Unrecognized command.';
       break;

@@ -1,9 +1,9 @@
 function divEscapedContentElement(message) {
-  return $('<div></div>').text(message);
+  return $('<div class="EscapedContentElement"></div>').text(message);
 }
 
 function divSystemContentElement(message) {
-  return $('<div></div>').html('<i>' + message + '</i>');
+  return $('<div class="SystemContentElement"></div>').html('<i>' + message + '</i>');
 }
 
 function processUserInput(chatApp, socket) {
@@ -65,11 +65,16 @@ $(document).ready(function() {
       $('#send-message').focus();
     });
   });
-
-  setInterval(function() {
-    socket.emit('rooms');
-  }, 1000);
-
+  
+  // setInterval(function() {
+  //   socket.emit('rooms');
+  // }, 1000);
+  
+  socket.on('dice', function(message){
+    var newElement = $('<div></div>').text(message);
+    $('#messages').append(newElement);
+  });
+  
   $('#send-message').focus();
 
   $('#send-form').submit(function() {
