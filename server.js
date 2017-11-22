@@ -32,15 +32,13 @@ function serveStatic (response, cache, absPath) {
   if (cache[absPath]) {
     sendFile(response, absPath, cache[absPath])
   } else {
-    fs.access(absPath, function (exists) {
-      fs.readFile(absPath, function (err, data) {
-        if (err) {
-          send404(response)
-        } else {
-          cache[absPath] = data
-          sendFile(response, absPath, data)
-        }
-      })
+    fs.readFile(absPath, function (err, data) {
+      if (err) {
+        send404(response)
+      } else {
+        cache[absPath] = data
+        sendFile(response, absPath, data)
+      }
     })
   }
 }
